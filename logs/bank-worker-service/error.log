@@ -1,0 +1,32 @@
+[2019-07-08 11:18:53,128][http-nio-8080-exec-9][ERROR][com.johnny.bankworker.service.impl.NewsServiceImpl:95] org.springframework.dao.DataIntegrityViolationException: 
+### Error updating database.  Cause: java.sql.SQLException: Field 'news_date' doesn't have a default value
+### The error may exist in file [/Users/zhangqiang/Documents/04-Project/BankWorker/SourceCode/BankWorkerService/target/classes/mapping/NewsMapping.xml]
+### The error may involve com.johnny.bankworker.mapper.NewsMapper.insert-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO sws.news (       news_title,       thumbnail_url,       news_content,       create_user,       update_user     )     VALUES (       ?,       ?,       ?,       ?,       ?     )
+### Cause: java.sql.SQLException: Field 'news_date' doesn't have a default value
+; SQL []; Field 'news_date' doesn't have a default value; nested exception is java.sql.SQLException: Field 'news_date' doesn't have a default value
+[2019-07-08 11:21:50,013][http-nio-8080-exec-1][ERROR][com.johnny.bankworker.service.impl.NewsServiceImpl:95] org.springframework.dao.DataIntegrityViolationException: 
+### Error updating database.  Cause: java.sql.SQLException: Field 'news_date' doesn't have a default value
+### The error may exist in file [/Users/zhangqiang/Documents/04-Project/BankWorker/SourceCode/BankWorkerService/target/classes/mapping/NewsMapping.xml]
+### The error may involve com.johnny.bankworker.mapper.NewsMapper.insert-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO sws.news (       news_title,       thumbnail_url,       news_content,       create_user,       update_user     )     VALUES (       ?,       ?,       ?,       ?,       ?     )
+### Cause: java.sql.SQLException: Field 'news_date' doesn't have a default value
+; SQL []; Field 'news_date' doesn't have a default value; nested exception is java.sql.SQLException: Field 'news_date' doesn't have a default value
+[2019-07-08 15:13:15,223][http-nio-8080-exec-6][ERROR][com.johnny.bankworker.service.impl.NewsServiceImpl:51] org.springframework.jdbc.BadSqlGrammarException: 
+### Error querying database.  Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-3, 3' at line 13
+### The error may exist in file [/Users/zhangqiang/Documents/04-Project/BankWorker/SourceCode/BankWorkerService/target/classes/mapping/NewsMapping.xml]
+### The error may involve com.johnny.bankworker.mapper.NewsMapper.searchList-Inline
+### The error occurred while setting parameters
+### SQL: SELECT       news_id,       news_title,       thumbnail_url,       news_content,       news_date,       create_user,       DATE_FORMAT(create_time, '%Y-%m-%d %H:%i:%s') AS create_time,       update_user,       DATE_FORMAT(update_time, '%Y-%m-%d %H:%i:%s') AS update_time     FROM sws.news     ORDER BY update_time DESC     LIMIT ?, ?;
+### Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-3, 3' at line 13
+; bad SQL grammar []; nested exception is com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-3, 3' at line 13
+[2019-07-08 15:13:28,711][http-nio-8080-exec-8][ERROR][com.johnny.bankworker.service.impl.NewsServiceImpl:51] org.springframework.jdbc.BadSqlGrammarException: 
+### Error querying database.  Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-3, 3' at line 13
+### The error may exist in file [/Users/zhangqiang/Documents/04-Project/BankWorker/SourceCode/BankWorkerService/target/classes/mapping/NewsMapping.xml]
+### The error may involve com.johnny.bankworker.mapper.NewsMapper.searchList-Inline
+### The error occurred while setting parameters
+### SQL: SELECT       news_id,       news_title,       thumbnail_url,       news_content,       news_date,       create_user,       DATE_FORMAT(create_time, '%Y-%m-%d %H:%i:%s') AS create_time,       update_user,       DATE_FORMAT(update_time, '%Y-%m-%d %H:%i:%s') AS update_time     FROM sws.news     ORDER BY update_time DESC     LIMIT ?, ?;
+### Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-3, 3' at line 13
+; bad SQL grammar []; nested exception is com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-3, 3' at line 13

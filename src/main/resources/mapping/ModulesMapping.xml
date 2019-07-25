@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.johnny.bankworker.mapper.ModulesMapper" >
+  <resultMap id="BaseResultMap" type="com.johnny.bankworker.entity.ModulesEntity" >
+    <id column="module_id" property="moduleID" jdbcType="INTEGER" />
+    <result column="module_name" property="moduleName" jdbcType="VARCHAR" />
+    <result column="module_type" property="moduleType" jdbcType="VARCHAR" />
+    <result column="module_parent_id" property="moduleParentID" jdbcType="INTEGER" />
+    <result column="module_sequence" property="moduleSequence" jdbcType="INTEGER" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <select id="searchTotalCount" resultType="java.lang.Integer">
+    SELECT
+    COUNT(1) AS TotalCount
+    FROM sws.modules;
+  </select>
+  <select id="searchList" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+
+  </select>
+  <select id="searchByID" resultMap="BaseResultMap">
+    SELECT
+      module_id,
+      module_name,
+      module_type,
+      module_parent_id,
+      module_sequence,
+      create_user,
+      DATE_FORMAT(create_time, '%Y-%m-%d %H:%i:%s') AS create_time,
+      update_user,
+      DATE_FORMAT(update_time, '%Y-%m-%d %H:%i:%s') AS update_time
+    FROM sws.modules
+    WHERE module_id = #{arg0,jdbcType=INTEGER};
+  </select>
+
+  <select id="searchAllModules" resultMap="BaseResultMap">
+    SELECT
+      module_id,
+      module_name,
+      module_type,
+      module_parent_id,
+      module_sequence,
+      create_user,
+      DATE_FORMAT(create_time, '%Y-%m-%d %H:%i:%s') AS create_time,
+      update_user,
+      DATE_FORMAT(update_time, '%Y-%m-%d %H:%i:%s') AS update_time
+    FROM sws.modules
+    ORDER BY module_sequence;
+  </select>
+
+  <select id="searchRootModules" resultMap="BaseResultMap">
+    SELECT
+      module_id,
+      module_name,
+      module_type,
+      module_parent_id,
+      module_sequence,
+      create_user,
+      DATE_FORMAT(create_time, '%Y-%m-%d %H:%i:%s') AS create_time,
+      update_user,
+      DATE_FORMAT(update_time, '%Y-%m-%d %H:%i:%s') AS update_time
+    FROM sws.modules
+    WHERE module_parent_id = 0
+    ORDER BY module_sequence;
+  </select>
+
+  <select id="searchChildModules" resultMap="BaseResultMap">
+    SELECT
+      module_id,
+      module_name,
+      module_type,
+      module_parent_id,
+      module_sequence,
+      create_user,
+      DATE_FORMAT(create_time, '%Y-%m-%d %H:%i:%s') AS create_time,
+      update_user,
+      DATE_FORMAT(update_time, '%Y-%m-%d %H:%i:%s') AS update_time
+    FROM sws.modules
+    WHERE module_parent_id = #{arg0,jdbcType=INTEGER}
+    ORDER BY module_sequence;
+  </select>
+
+  <select id="searchChildModulesMaxSequence" resultType="java.lang.Integer">
+    SELECT
+    COALESCE(MAX(module_sequence),0) AS max_sequence
+    FROM sws.modules
+    WHERE module_parent_id = #{arg0,jdbcType=INTEGER};
+  </select>
+
+  <insert id="insert" parameterType="com.johnny.bankworker.entity.ModulesEntity" >
+    INSERT INTO sws.modules (
+      module_name,
+      module_type,
+      module_parent_id,
+      module_sequence,
+      create_user,
+      update_user
+    )
+    VALUES (
+      #{moduleName, jdbcType=VARCHAR},
+      #{moduleType, jdbcType=VARCHAR},
+      #{moduleParentID, jdbcType=INTEGER},
+      #{moduleSequence, jdbcType=INTEGER},
+      #{createUser, jdbcType=VARCHAR},
+      #{updateUser, jdbcType=VARCHAR}
+    );
+  </insert>
+  <update id="update" parameterType="com.johnny.bankworker.entity.ModulesEntity" >
+    UPDATE sws.modules SET
+      module_name = #{moduleName,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR}
+    WHERE module_id = #{moduleID,jdbcType=INTEGER}
+  </update>
+  <update id="moveModule" parameterType="com.johnny.bankworker.entity.ModulesEntity" >
+    UPDATE sws.modules SET
+      module_parent_id = #{moduleParentID,jdbcType=INTEGER},
+      update_user = #{updateUser,jdbcType=VARCHAR}
+    WHERE module_id = #{moduleID,jdbcType=INTEGER}
+  </update>
+  <update id="updateModulesSequence" parameterType="com.johnny.bankworker.entity.ModulesEntity" >
+    UPDATE sws.modules SET
+      module_sequence = #{moduleSequence,jdbcType=INTEGER},
+      update_user = #{updateUser,jdbcType=VARCHAR}
+    WHERE module_id = #{moduleID,jdbcType=INTEGER}
+    AND module_parent_id = #{moduleParentID,jdbcType=INTEGER};
+  </update>
+  <delete id="deleteModule" parameterType="java.lang.Integer" >
+    DELETE FROM sws.modules
+    WHERE module_id = #{moduleID,jdbcType=INTEGER}
+  </delete>
+</mapper>

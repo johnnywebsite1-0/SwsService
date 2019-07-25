@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.johnny.bankworker.mapper.ModuleResourcesMapper" >
+  <resultMap id="BaseResultMap" type="com.johnny.bankworker.entity.ModuleResourcesEntity" >
+    <id column="resources_id" property="resourcesID" jdbcType="INTEGER" />
+    <result column="resources_url" property="resourcesUrl" jdbcType="VARCHAR" />
+    <result column="resources_type" property="resourcesType" jdbcType="VARCHAR" />
+
+    <result column="delete_flag" property="deleteFlag" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <select id="searchTotalCount" resultType="java.lang.Integer">
+    SELECT
+    COUNT(1) AS TotalCount
+    FROM sws.module_resources;
+  </select>
+  <select id="searchList" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+      resources_id,
+      resources_url,
+      resources_type,
+      create_user,
+      DATE_FORMAT(create_time, '%Y-%m-%d %H:%i:%s') AS create_time,
+      update_user,
+      DATE_FORMAT(update_time, '%Y-%m-%d %H:%i:%s') AS update_time
+    FROM sws.module_resources
+    ORDER BY update_time DESC
+    LIMIT #{arg0,jdbcType=INTEGER}, #{arg1,jdbcType=INTEGER};
+  </select>
+  <select id="searchByID" resultMap="BaseResultMap">
+
+  </select>
+  <select id="searchByName" resultMap="BaseResultMap">
+  </select>
+
+  <insert id="insert" parameterType="com.johnny.bankworker.entity.ModuleResourcesEntity" >
+    INSERT INTO sws.module_resources (
+      resources_id,
+      resources_url,
+      resources_type,
+      create_user,
+      update_user
+    )
+    VALUES (
+      #{resourcesID, jdbcType=INTEGER},
+      #{resourcesUrl, jdbcType=VARCHAR},
+      #{resourcesType, jdbcType=VARCHAR},
+      #{createUser, jdbcType=VARCHAR},
+      #{updateUser, jdbcType=VARCHAR}
+    )
+  </insert>
+  <update id="update" parameterType="com.johnny.bankworker.entity.ModuleResourcesEntity" >
+
+  </update>
+  <delete id="delete" parameterType="com.johnny.bankworker.entity.ModuleResourcesEntity" >
+
+  </delete>
+  <delete id="deleteResources" parameterType="java.lang.Integer" >
+    DELETE FROM sws.module_resources
+    WHERE resources_id = #{resourcesID,jdbcType=INTEGER}
+  </delete>
+  <update id="recovery" parameterType="com.johnny.bankworker.entity.ModuleResourcesEntity" >
+
+  </update>
+</mapper>

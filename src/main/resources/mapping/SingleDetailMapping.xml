@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.johnny.bankworker.mapper.SingleDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.johnny.bankworker.entity.SingleDetailEntity" >
+    <id column="detail_id" property="detailID" jdbcType="INTEGER" />
+    <result column="detail_title" property="detailTitle" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <select id="searchTotalCount" resultType="java.lang.Integer">
+    SELECT
+    COUNT(1) AS TotalCount
+    FROM sws.single_detail;
+  </select>
+  <select id="searchList" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+      detail_id,
+      detail_title,
+      content,
+      create_user,
+      DATE_FORMAT(create_time, '%Y-%m-%d %H:%i:%s') AS create_time,
+      update_user,
+      DATE_FORMAT(update_time, '%Y-%m-%d %H:%i:%s') AS update_time
+    FROM sws.single_detail
+    ORDER BY update_time DESC
+    LIMIT #{arg0,jdbcType=INTEGER}, #{arg1,jdbcType=INTEGER};
+  </select>
+  <select id="searchByID" resultMap="BaseResultMap">
+    SELECT
+      detail_id,
+      detail_title,
+      content,
+      create_user,
+      DATE_FORMAT(create_time, '%Y-%m-%d %H:%i:%s') AS create_time,
+      update_user,
+      DATE_FORMAT(update_time, '%Y-%m-%d %H:%i:%s') AS update_time
+    FROM sws.single_detail
+    WHERE detail_id = #{arg0,jdbcType=INTEGER};
+  </select>
+  <select id="searchByName" resultMap="BaseResultMap">
+  </select>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="detailID" parameterType="com.johnny.bankworker.entity.SingleDetailEntity" >
+    INSERT INTO sws.single_detail (
+      detail_id,
+      detail_title,
+      content,
+      create_user,
+      update_user
+    )
+    VALUES (
+      #{detailID, jdbcType=INTEGER},
+      #{detailTitle, jdbcType=VARCHAR},
+      #{content, jdbcType=VARCHAR},
+      #{createUser, jdbcType=VARCHAR},
+      #{updateUser, jdbcType=VARCHAR}
+    )
+  </insert>
+  <update id="update" parameterType="com.johnny.bankworker.entity.SingleDetailEntity" >
+    UPDATE sws.single_detail SET
+      detail_title = #{detailTitle,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR}
+    WHERE detail_id = #{detailID,jdbcType=INTEGER};
+  </update>
+  <delete id="delete" parameterType="com.johnny.bankworker.entity.SingleDetailEntity" >
+
+  </delete>
+  <delete id="deleteDetail" parameterType="java.lang.Integer" >
+    DELETE FROM sws.single_detail
+    WHERE detail_id = #{detailID,jdbcType=INTEGER}
+  </delete>
+  <update id="recovery" parameterType="com.johnny.bankworker.entity.SingleDetailEntity" >
+
+  </update>
+</mapper>
